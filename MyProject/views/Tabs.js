@@ -13,7 +13,9 @@ export const tabs = [
         options:{
             headerShown:false,
             title:'',
-            tabBarIcon:({})=>(<MaterialIcons name="ssid-chart" size={24} color="black" />)
+            tabBarIcon:({focused})=>{
+                return focused ? <MaterialIcons name="ssid-chart" size={24} color="rgba(36, 39, 96, 1)" /> : <MaterialIcons name="ssid-chart" size={24} color="black" />;
+            }
         },
 
         name:"Home",
@@ -22,7 +24,9 @@ export const tabs = [
         options:{
             headerShown:false,
             title:'',
-            tabBarIcon:({})=>(<MaterialCommunityIcons name="calendar-edit" size={24} color="black" />)
+            tabBarIcon:({focused})=>{
+                return focused ? <MaterialCommunityIcons name="calendar-edit" size={24} color="rgba(36, 39, 96, 1)" />: <MaterialCommunityIcons name="calendar-edit" size={24} color="black"/>;
+            }
         },
         name:"Calendar",
         component:CalendarView,
@@ -30,7 +34,7 @@ export const tabs = [
         options:{
             headerShown:false,
             title:'',
-            tabBarButton:({})=><FloatingActionBtn/>
+            tabBarButton:({})=><FloatingActionBtn />
         },
         name:"FAB",
         component:DashboardView,
@@ -39,7 +43,9 @@ export const tabs = [
         options:{
             headerShown:false,
             title:'',
-            tabBarIcon:({})=>(<Feather name="settings" size={24} color="black" />)
+            tabBarIcon:({focused})=>{
+                return focused ? <Feather name="settings" size={24} color="rgba(36, 39, 96, 1)" />:<Feather name="settings" size={24} color="black"/>;
+            }
         },
         name:"Settings",
         component:SettingsView,
@@ -47,7 +53,9 @@ export const tabs = [
         options:{
             headerShown:false,
             title:'',
-            tabBarIcon:({})=>(<Fontisto name="male" size={24} color="black" />)
+            tabBarIcon:({focused})=>{
+                return focused?<Fontisto name="male" size={24} color="rgba(36, 39, 96, 1)" />:<Fontisto name="male" size={24} color="black"/>;
+            }
         },
         name:"Profile",
         component:ProfileView,

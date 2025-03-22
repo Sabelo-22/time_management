@@ -1,12 +1,18 @@
-import {TouchableOpacity} from "react-native";
+import {Alert, Modal, Pressable, Text, TouchableOpacity, View} from "react-native";
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import React, {useState} from "react";
+import ModalComp from "./Modal";
 
 export default function FloatingActionBtn() {
+    const [modalVisible, setModalVisible] = useState(false);
     return(
-        <TouchableOpacity style={styles.fab} onPress={()=>alert("Hello")}>
-            <Icon name="add" size={30} color="white" />
-        </TouchableOpacity>
+        <View>
+            <ModalComp modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+            <TouchableOpacity style={styles.fab} onPress={()=>setModalVisible(true)}>
+                <Icon name="add" size={30} color="white" />
+            </TouchableOpacity>
+        </View>
     );
 }
 
