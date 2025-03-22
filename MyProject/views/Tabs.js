@@ -6,6 +6,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Feather from '@expo/vector-icons/Feather';
 import Fontisto from '@expo/vector-icons/Fontisto';
+import FloatingActionBtn from "../components/Floating Action Button";
 
 export const tabs = [
     {
@@ -25,6 +26,14 @@ export const tabs = [
         },
         name:"Calendar",
         component:CalendarView,
+    },{
+        options:{
+            headerShown:false,
+            title:'',
+            tabBarButton:({})=><FloatingActionBtn/>
+        },
+        name:"FAB",
+        component:DashboardView,
     },
     {
         options:{

@@ -1,20 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 export default function CalendarView() {
     return (
-        <View style={styles.container}>
-            <Text>Calendar View</Text>
-             <StatusBar style="auto" />
-        </View>
+        <SafeAreaView  style={styles.safeArea}>
+            <StatusBar style="auto"  />
+            <View style={styles.container}>
+                <Text>Calendar View</Text>
+                <StatusBar style="auto" />
+            </View>
+        </SafeAreaView>
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop:40,
+        paddingLeft:30
     },
+    safeArea:{
+        flex:1,
+        backgroundColor: '#fff',
+    },
+    pageHeading:{
+        fontSize:34,
+        fontWeight:"bold",
+        color:'3A3A3A',
+    }
 });
