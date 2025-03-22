@@ -1,13 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 export default function DashboardView() {
   return (
-    <View style={styles.container}>
-      <Text>Dashboard View</Text>
-       <StatusBar style="auto" />
-    </View>
+      <SafeAreaView  style={styles.safeArea}>
+        <StatusBar style="auto"/>
+        <View style={styles.container}>
+          <Text style={styles.pageHeading}>Dashboard</Text>
+
+        </View>
+      </SafeAreaView>
   );
 }
 
@@ -15,7 +17,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop:40,
+    paddingLeft:30
   },
+  safeArea:{
+    flex:1,
+    backgroundColor: '#fff',
+  },
+  pageHeading:{
+    fontSize:34,
+    fontWeight:"bold",
+    color:'3A3A3A',
+  }
 });
