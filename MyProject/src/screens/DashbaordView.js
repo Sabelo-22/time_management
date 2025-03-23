@@ -7,12 +7,19 @@ import {
   TouchableOpacity,
   Modal,
   SafeAreaView,
+  TextInput,
 } from "react-native";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 
 const DashboardView = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [taskModalVisible, setTaskModalVisible] = useState(false);
   const [selectedNotification, setSelectedNotification] = useState(null);
+  const [tasks, setTasks] = useState([]);
+  const [editingTask, setEditingTask] = useState(null);
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskDueDate, setTaskDueDate] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
 
   // Sample notifications data
   const notifications = [
@@ -21,17 +28,47 @@ const DashboardView = () => {
     { id: "3", title: "Meeting Reminder", dueDate: "March 28, 2025", details: "Your team meeting is scheduled for March 28 at 10 AM. Don't miss it!" },
   ];
 
-  // Sample recently added tasks data
-  const recentTasks = [
-    { id: "1", title: "Implement Firebase Authentication" },
-    { id: "2", title: "Fix calendar bug in scheduling" },
-    { id: "3", title: "Update UI for settings screen" },
-  ];
-
-  // Open modal with notification details
+  // Open notification details modal
   const openModal = (notification) => {
     setSelectedNotification(notification);
     setModalVisible(true);
+  };
+
+  // Open task modal for adding/editing
+  const openTaskModal = (task = null) => {
+    if (task) {
+      setEditingTask(task);
+      setTaskTitle(task.title);
+      setTaskDueDate(task.dueDate);
+      setTaskDescription(task.description);
+    } else {
+      setEditingTask(null);
+      setTaskTitle("");
+      setTaskDueDate("");
+      setTaskDescription("");
+    }
+    setTaskModalVisible(true);
+  };
+
+  // Add or update a task
+  const handleSaveTask = () => {
+    if (!taskTitle || !taskDueDate || !taskDescription) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    if (editingTask) {
+      setTasks(tasks.map(task => (task.id === editingTask.id ? { id: task.id, title: taskTitle, dueDate: taskDueDate, description: taskDescription } : task)));
+    } else {
+      setTasks([...tasks, { id: Date.now().toString(), title: taskTitle, dueDate: taskDueDate, description: taskDescription }]);
+    }
+
+    setTaskModalVisible(false);
+  };
+
+  // Delete a task
+  const deleteTask = (id) => {
+    setTasks(tasks.filter(task => task.id !== id));
   };
 
   return (
@@ -61,26 +98,51 @@ const DashboardView = () => {
 
         {/* Recently Added Tasks Section */}
         <Text style={styles.sectionTitle}>Recently Added Tasks</Text>
-        <FlatList
-          data={recentTasks}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.taskCard}>
-              <Feather name="check-circle" size={20} color="green" style={styles.taskIcon} />
-              <Text style={styles.taskText}>{item.title}</Text>
-            </View>
-          )}
-        />
+        {tasks.length === 0 ? (
+          <Text style={styles.noTasksText}>No tasks added yet.</Text>
+        ) : (
+          <FlatList
+            data={tasks}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.taskCard}>
+                <Feather name="check-circle" size={20} color="green" style={styles.taskIcon} />
+                <View style={styles.taskInfo}>
+                  <Text style={styles.taskTitle}>{item.title}</Text>
+                  <Text style={styles.taskDate}>Due: {item.dueDate}</Text>
+                  <Text style={styles.taskDescription}>{item.description}</Text>
+                </View>
+                <View style={styles.actionButtons}>
+                  <TouchableOpacity onPress={() => openTaskModal(item)}>
+                    <Feather name="edit" size={20} color="#007BFF" />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => deleteTask(item.id)}>
+                    <Feather name="trash" size={20} color="red" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          />
+        )}
 
-        {/* Notification Details Modal */}
-        <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
+        {/* Add Task Button */}
+        <TouchableOpacity style={styles.addButton} onPress={() => openTaskModal()}>
+          <Text style={styles.addButtonText}>+ Add Task</Text>
+        </TouchableOpacity>
+
+        {/* Task Modal */}
+        <Modal animationType="slide" transparent={true} visible={taskModalVisible}>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>{selectedNotification?.title}</Text>
-              <Text style={styles.modalDate}>Due Date: {selectedNotification?.dueDate}</Text>
-              <Text style={styles.modalDetails}>{selectedNotification?.details}</Text>
-              <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
-                <Text style={styles.closeButtonText}>Close</Text>
+              <Text style={styles.modalTitle}>{editingTask ? "Edit Task" : "Add New Task"}</Text>
+              <TextInput style={styles.input} placeholder="Task Title" value={taskTitle} onChangeText={setTaskTitle} />
+              <TextInput style={styles.input} placeholder="Due Date" value={taskDueDate} onChangeText={setTaskDueDate} />
+              <TextInput style={[styles.input, styles.textArea]} placeholder="Description" value={taskDescription} onChangeText={setTaskDescription} multiline />
+              <TouchableOpacity style={styles.saveButton} onPress={handleSaveTask}>
+                <Text style={styles.closeButtonText}>{editingTask ? "Update Task" : "Save Task"}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.closeButton} onPress={() => setTaskModalVisible(false)}>
+                <Text style={styles.closeButtonText}>Cancel</Text>
               </TouchableOpacity>
             </View>
           </View>
