@@ -21,20 +21,17 @@ const DashboardView = () => {
   const [taskDueDate, setTaskDueDate] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
 
-  // Sample notifications data
   const notifications = [
     { id: "1", title: "Project Deadline Approaching", dueDate: "March 25, 2025", details: "Your project 'Collab App' is due in 2 days. Please review the pending tasks." },
     { id: "2", title: "New Task Assigned", dueDate: "March 27, 2025", details: "You have been assigned a new task: 'Design UI Components' for the Collab App." },
     { id: "3", title: "Meeting Reminder", dueDate: "March 28, 2025", details: "Your team meeting is scheduled for March 28 at 10 AM. Don't miss it!" },
   ];
 
-  // Open notification details modal
   const openModal = (notification) => {
     setSelectedNotification(notification);
     setModalVisible(true);
   };
 
-  // Open task modal for adding/editing
   const openTaskModal = (task = null) => {
     if (task) {
       setEditingTask(task);
@@ -50,7 +47,6 @@ const DashboardView = () => {
     setTaskModalVisible(true);
   };
 
-  // Add or update a task
   const handleSaveTask = () => {
     if (!taskTitle || !taskDueDate || !taskDescription) {
       alert("Please fill all fields");
@@ -66,7 +62,6 @@ const DashboardView = () => {
     setTaskModalVisible(false);
   };
 
-  // Delete a task
   const deleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
@@ -74,7 +69,7 @@ const DashboardView = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Notifications Section */}
+        {/* Notifications */}
         <Text style={styles.sectionTitle}>Notifications</Text>
         <FlatList
           data={notifications}
@@ -96,7 +91,7 @@ const DashboardView = () => {
           <Text style={styles.viewMoreButtonText}>View More Notifications</Text>
         </TouchableOpacity>
 
-        {/* Recently Added Tasks Section */}
+        {/* Recently Added Tasks */}
         <Text style={styles.sectionTitle}>Recently Added Tasks</Text>
         {tasks.length === 0 ? (
           <Text style={styles.noTasksText}>No tasks added yet.</Text>
@@ -125,12 +120,10 @@ const DashboardView = () => {
           />
         )}
 
-        {/* Add Task Button */}
         <TouchableOpacity style={styles.addButton} onPress={() => openTaskModal()}>
           <Text style={styles.addButtonText}>+ Add Task</Text>
         </TouchableOpacity>
 
-        {/* Task Modal */}
         <Modal animationType="slide" transparent={true} visible={taskModalVisible}>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>

@@ -18,12 +18,10 @@ const CalendarScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [taskText, setTaskText] = useState("");
 
-  // Select a date
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
   };
 
-  // Add a task to selected date
   const addTask = () => {
     if (!taskText) {
       alert("Please enter a task!");
@@ -44,7 +42,7 @@ const CalendarScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Calendar */}
+
         <Calendar
           onDayPress={onDayPress}
           markedDates={{
@@ -57,12 +55,10 @@ const CalendarScreen = () => {
           }}
         />
 
-        {/* Selected Date Header */}
         <Text style={styles.dateTitle}>
           {selectedDate ? `Tasks for ${selectedDate}` : "Select a date"}
         </Text>
 
-        {/* Task List */}
         {tasks[selectedDate]?.length > 0 ? (
           <FlatList
             data={tasks[selectedDate]}
@@ -78,7 +74,6 @@ const CalendarScreen = () => {
           <Text style={styles.noTasksText}>No tasks added for this date.</Text>
         )}
 
-        {/* Add Task Button */}
         {selectedDate && (
           <TouchableOpacity
             style={styles.addButton}
@@ -88,7 +83,6 @@ const CalendarScreen = () => {
           </TouchableOpacity>
         )}
 
-        {/* Task Modal */}
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
