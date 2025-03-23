@@ -1,28 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import {tabs} from "./views/Tabs";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Tabs from "./src/screens/Tabs";
+import OnboardingScreen from "./src/screens/OnboardingScreen";
+import SignupScreen from "./src/screens/SignupScreen";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
-
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        {tabs.map((tab)=>(
-            <Tab.Screen key={tab.name} options={tab.options} name={tab.name} component={tab.component}/>
-        ))}
-      </Tab.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="MainApp" component={Tabs} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
