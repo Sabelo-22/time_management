@@ -6,6 +6,7 @@ import {
   Pressable,
   View,
   TextInput,
+  Alert,
 } from "react-native";
 
 export default function ModalComp({
@@ -35,7 +36,7 @@ export default function ModalComp({
   // Handles saving or updating a task
   const handleSave = () => {
     if (!title || !dueDate || !description) {
-      alert("Please fill in all fields.");
+      Alert.alert("Error", "Please fill in all fields.");
       return;
     }
 
@@ -48,8 +49,10 @@ export default function ModalComp({
 
     if (editingTask) {
       updateTask(newTask);
+      Alert.alert("Success", "Task updated successfully!");
     } else {
       addTask(newTask);
+      Alert.alert("Success", "Task added successfully!");
     }
 
     setModalVisible(false);
@@ -75,7 +78,7 @@ export default function ModalComp({
           {/* Due Date Input */}
           <TextInput
             style={styles.input}
-            placeholder="Enter due date (e.g. March 25, 2025)"
+            placeholder="Enter due date (e.g March 25 2025)"
             placeholderTextColor={"#ccc"}
             value={dueDate}
             onChangeText={setDueDate}
