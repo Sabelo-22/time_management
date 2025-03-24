@@ -27,9 +27,9 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+   
         <View style={styles.container}>
+            <Text style={styles.title}>WELCOME BACK</Text>
           <Text style={styles.title}>Log In</Text>
 
           <TextInput
@@ -61,8 +61,7 @@ const LoginScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+
   );
 };
 
@@ -80,6 +79,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingHorizontal: 20,
+      justifyContent:"center",
+    alignItems:"center"
   },
   title: {
     fontSize: 24,

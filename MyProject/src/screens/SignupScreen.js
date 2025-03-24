@@ -43,8 +43,8 @@ const SignupScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+   
+    
         <View style={styles.container}>
           <Text style={styles.title}>Create an Account</Text>
 
@@ -103,25 +103,30 @@ const SignupScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+     
+ 
   );
 };
 
 export default SignupScreen;
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#F8F9FA",
-  },
-  scrollContainer: {
-    paddingVertical: 20,
-  },
+  // safeArea: {
+  //   flex: 1,
+  //   backgroundColor: "#F8F9FA",
+    
+  // },
+  // scrollContainer: {
+  //   paddingVertical: 20,
+  // },
   container: {
     flex: 1,
     alignItems: "center",
     paddingHorizontal: 20,
+    borderWidth: 1,
+    // borderColor: "red",
+    justifyContent:"center",
+    alignItems:"center"
   },
   title: {
     fontSize: 24,

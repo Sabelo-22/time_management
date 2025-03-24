@@ -67,10 +67,11 @@ const DashboardView = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+ 
       <View style={styles.container}>
         {/* Notifications */}
         <Text style={styles.sectionTitle}>Notifications</Text>
+        <View>
         <FlatList
           data={notifications}
           keyExtractor={(item) => item.id}
@@ -87,6 +88,8 @@ const DashboardView = () => {
             </View>
           )}
         />
+        </View>
+       
         <TouchableOpacity style={styles.viewMoreButton}>
           <Text style={styles.viewMoreButtonText}>View More Notifications</Text>
         </TouchableOpacity>
@@ -141,20 +144,20 @@ const DashboardView = () => {
           </View>
         </Modal>
       </View>
-    </SafeAreaView>
+   
   );
 };
 
 export default DashboardView;
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#F8F9FA",
-  },
+ 
   container: {
     flex: 1,
     padding: 20,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "red",
   },
   sectionTitle: {
     fontSize: 22,
